@@ -15,13 +15,34 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
+var devices_component_1 = require('./devices.component');
+var telemetry_Dashboard_component_1 = require('./telemetry-Dashboard.component');
+var router_1 = require('@angular/router');
+var core_2 = require('angular2-google-maps/core'); //https://angular-maps.com/docs/getting-started.html
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
+        //https://angular-maps.com/docs/getting-started.html
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-            declarations: [app_component_1.AppComponent],
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                router_1.RouterModule.forRoot([
+                    {
+                        path: 'devices',
+                        component: devices_component_1.DevicesComponent
+                    },
+                    {
+                        path: 'dashboard',
+                        component: telemetry_Dashboard_component_1.TelemetryDashboardComponent
+                    },
+                ]),
+                core_2.AgmCoreModule.forRoot({
+                    apiKey: 'AIzaSyAf-Zu4il008oTjbMmbJm_uUnWq-1DJMuY'
+                })
+            ],
+            declarations: [app_component_1.AppComponent, devices_component_1.DevicesComponent, telemetry_Dashboard_component_1.TelemetryDashboardComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
