@@ -1,0 +1,27 @@
+<h1>
+    {{title}}
+</h1>
+
+
+<sebm-google-map class="sebm-google-map-container"
+        [latitude]="rootLat"
+        [longitude]="rootLng"
+        [zoom]="zoom"
+        [disableDefaultUI]="true"
+        [zoomControl]="true"
+        >
+
+    <!--</sebm-google-map-marker>-->
+    <sebm-google-map-marker *ngFor="let d of devices"
+                            [latitude]="d.Location.points[0].x"
+                            [longitude]="d.Location.points[0].y"
+                            iconUrl="../img/sensor_rd.png"
+            >
+
+            <sebm-google-map-info-window>
+            <p>More info!</p>
+            </sebm-google-map-info-window>
+
+    </sebm-google-map-marker>
+
+</sebm-google-map>

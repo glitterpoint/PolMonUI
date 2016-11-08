@@ -26,4 +26,4 @@ var TelemetryDashboardComponent = (function () {
     return TelemetryDashboardComponent;
 }());
 exports.TelemetryDashboardComponent = TelemetryDashboardComponent;
-//# sourceMappingURL=telemetry-Dashboard.component.js.map
+//# sourceMappingURL=telemetry-dashboard.component.js.map

@@ -1,18 +1,48 @@
 /**
  * Created by Surya on 11/5/2016.
  */
-import {Component} from '@angular/core';
+import {Component}          from '@angular/core';
+import {Device}             from './device'
+import {DeviceService}      from './devices.service';
+
+
+
+interface marker {
+    lat: number;
+    lng: number;
+    label?: string;
+    draggable: boolean;
+    icon?: string;
+}
 
 @Component({
+    moduleId: module.id,
     selector:'devices-location-map',
-    template:'<h2>plug in google map here.</h2>' +
-    '<sebm-google-map>' +
-        '<sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>' +
-        '<sebm-google-map-marker [latitude]="17.3589256" [longitude]="78.5412585"></sebm-google-map-marker>' +
-    '</sebm-google-map>'
+    templateUrl:'device.html',
+    providers:[DeviceService],
 })
 // GOOGLE MAPS API KEY: AIzaSyAf-Zu4il008oTjbMmbJm_uUnWq-1DJMuY
 export class DevicesComponent{
-    lat: number = 17.4325101;
-    lng: number = 78.4554811;
+    title = 'Sensors locations';
+    zoom: number = 10;
+    rootLat: number;
+    rootLng: number;
+    devices: Device[] ;
+
+    constructor(private deviceService:DeviceService){
+
+    }
+    ngOnInit():void{
+        this.deviceService.getDevices()
+        .subscribe(
+            devices => {
+                this.devices = devices;
+                if(this.devices.length > 0){
+                    this.rootLat = this.devices[0].Location.points[0].x;
+                    this.rootLng = this.devices[0].Location.points[0].y;
+                }
+            });
+    }
 }
+
+

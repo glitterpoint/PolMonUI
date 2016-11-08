@@ -2,7 +2,7 @@
  * Created by Surya on 11/4/2016.
  */
 import {Component, Input} from '@angular/core';
-import {Hero} from "./hero";
+import {Hero} from "./device";
 
 
 @Component({

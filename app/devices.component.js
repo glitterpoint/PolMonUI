@@ -12,21 +12,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by Surya on 11/5/2016.
  */
 var core_1 = require('@angular/core');
+var devices_service_1 = require('./devices.service');
 var DevicesComponent = (function () {
-    function DevicesComponent() {
-        this.lat = 17.4325101;
-        this.lng = 78.4554811;
+    function DevicesComponent(deviceService) {
+        this.deviceService = deviceService;
+        this.title = 'Sensors locations';
+        this.zoom = 10;
     }
+    DevicesComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.deviceService.getDevices()
+            .subscribe(function (devices) {
+            _this.devices = devices;
+            if (_this.devices.length > 0) {
+                _this.rootLat = _this.devices[0].Location.points[0].x;
+                _this.rootLng = _this.devices[0].Location.points[0].y;
+            }
+        });
+    };
     DevicesComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'devices-location-map',
-            template: '<h2>plug in google map here.</h2>' +
-                '<sebm-google-map>' +
-                '<sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>' +
-                '<sebm-google-map-marker [latitude]="17.3589256" [longitude]="78.5412585"></sebm-google-map-marker>' +
-                '</sebm-google-map>'
+            templateUrl: 'device.html',
+            providers: [devices_service_1.DeviceService],
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [devices_service_1.DeviceService])
     ], DevicesComponent);
     return DevicesComponent;
 }());
