@@ -12,14 +12,44 @@
         >
 
     <!--</sebm-google-map-marker>-->
-    <sebm-google-map-marker *ngFor="let d of devices"
-                            [latitude]="d.Location.points[0].x"
-                            [longitude]="d.Location.points[0].y"
-                            iconUrl="../img/sensor_rd.png"
+    <sebm-google-map-marker *ngFor="let d of deviceMapMarkers"
+                            [latitude]="d.x"
+                            [longitude]="d.y"
+                            [iconUrl]="d.iconUrl"
+                            (markerClick) = "markerClick(d)"
             >
 
-            <sebm-google-map-info-window>
-            <p>More info!</p>
+            <sebm-google-map-info-window maxWidth="550">
+            <p><b>Device Name: {{d.info.title}}</b></p>
+                <table class="pure-table pure-table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Sensor</th>
+                        <th>Reading</th>
+                        <th>Recorded Date</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr  *ngFor = "let sr of d.info.sensorReadings">
+                        <td>{{sr.id}}</td>
+                        <td>{{sr.name}}</td>
+                        <td>{{sr.value}}</td>
+                        <td>{{sr.createdOn | date:'shortDate'}} {{sr.createdOn | date:'shortTime'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<div class="divTable" style="border: 1px solid #000;" >-->
+                    <!--<div class="divTableBody">-->
+                        <!--<div class="divTableRow" *ngFor = "let sr of d.info.sensorReadings">-->
+                            <!--<div class="divTableCell">{{sr.name}}</div>-->
+                            <!--<div class="divTableCell">{{sr.value}}</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!-- DivTable.com -->
+
             </sebm-google-map-info-window>
 
     </sebm-google-map-marker>

@@ -29,6 +29,11 @@ var DeviceService = (function () {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     };
+    DeviceService.prototype.getTopTelemetry = function (deviceId) {
+        var u = this.deviceUrl + '/' + deviceId + '/telemetry';
+        return this.http.get(u)
+            .map(function (res) { return res.json(); });
+    };
     DeviceService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

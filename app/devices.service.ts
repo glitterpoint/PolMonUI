@@ -26,4 +26,12 @@ export class DeviceService {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
+
+    getTopTelemetry(deviceId: string): Observable<any[]>{
+        var u = this.deviceUrl + '/' + deviceId + '/telemetry';
+
+        return this.http.get(u)
+            .map(res => res.json());
+
+    }
 }
